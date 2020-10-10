@@ -1,0 +1,62 @@
+PRPL is an acronym that describes a pattern used to make web pages load and become interactive, faster:
+   Push (or preload) the most important resources.
+   Render the initial route as soon as possible.
+   Pre-cache remaining assets.
+   Lazy load other routes and non-critical assets.
+  
+ 
+  Preload critical resources #
+      Preload is a declarative fetch request that tells the browser to request a resource as soon as possible.
+      Preload critical resources by adding a <link> tag with rel="preload" to the head of your HTML document:
+
+        example-code:        <link rel="preload" as="style" href="css/style.css">
+
+      The browser sets a more appropriate priority level for the resource in order to try to download it sooner
+      while not delaying the window.onload event.
+  
+Note: What is First Paint?
+Answer:First paint refers to the point at which the first pixel renders on a screen after a user navigates to a web page. 
+First contentful paint occurs when a browser first renders any content from the document object model 
+(DOM), including any text, images, non-white canvas, or scalable vector graphics (SVG) onto the page.
+ 
+  Render the initial route as soon as possible #
+      To improve First Paint, Lighthouse recommends **inlining critical JavaScript and deferring the rest using async**, as
+      well as inlining critical CSS used above-the-fold. This improves performance by eliminating round-trips to the 
+      server to fetch render-blocking assets. However, inline code is harder to maintain from a development perspective 
+      and cannot be cached separately by the browser.
+
+      Another approach to improve First Paint is to server-side render the initial HTML of your page. This displays 
+      content immediately to the user while scripts are still being fetched, parsed, and executed. However, this can
+      increase the payload of the HTML file significantly, which can harm Time to Interactive, or the time it takes
+      for your application to become interactive and can respond to user input.
+
+      There is no single correct solution to reduce the First Paint in your application, and you should only 
+      consider inlining styles and server-side rendering if the benefits outweigh the tradeoffs for your application
+ 
+Note: What is service Worker?
+Answer:A service worker is a script that your browser runs in the background, separate from a web page, opening the door 
+to features that don't need a web page or user interaction. Today, they already include features like push notifications
+and background sync.
+ 
+Note: What is server side rendering?
+Answer:Server-side rendering (SSR), is the ability of an application to contribute by displaying the web-page on the
+server instead of rendering it in the browser. Server-side sends a fully rendered page to the client; the client's 
+JavaScript bundle takes over and allows the SPA framework to operate.
+the two SSRs in react are Next.js and Gatsby 
+   
+   Pre-cache assets #
+      By acting as a proxy, service workers can fetch assets directly from the cache rather than the server on repeat visits.
+      This not only allows users to use your application when they are offline, but also results in faster page load times on 
+      repeat visits.
+
+   Lazy load #
+      Lighthouse displays a failed audit if you send too much data over the network.
+      
+      This includes all asset types, but large JavaScript payloads are especially costly due to the time it takes the browser 
+      to parse and compile them. Lighthouse also provides a warning for this when appropriate.
+
+      To send a smaller JavaScript payload that contains only the code needed when a user initially loads your application,
+      split the entire bundle and lazy load chunks on demand.
+      
+      What it actually means is dividing code into smaller pieces.
+
