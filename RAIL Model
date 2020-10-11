@@ -1,0 +1,31 @@
+RAIL is a method to optimize web page while keeping in mind the experience of user. This model breaks down user experience
+into smaller goals like - scrolling, tapping, etc and lets the developer focus on them. the full form of RAIL is Response, 
+Animation, Idle, Load. Humans' attention period is very small and the developer has to tap onto it to make the web application
+better.
+
+The recognition of delay as percieved by humans of tasks are listed below -
+0-100ms - at instant
+100-300ms - Slightly perceptible delay
+300-1000 - task focus, perceptible delay
+1000ms - Mental context switch
+1000ms-10,000ms - Ill come back later.
+
+Response: process events in under 50ms #
+  Goal:
+    Complete a transition initiated by user input within 100 ms, so users feel like the interactions are instantaneous.
+
+  Guidelines:
+    To ensure a visible response within 100 ms, process user input events within 50 ms. This applies to most inputs, such as 
+    clicking buttons, toggling form controls, or starting animations. This does not apply to touch drags or scrolls.
+
+    **Though it may sound counterintuitive, it's not always the right call to respond to user input immediately**. You can 
+    use this 100 ms window to do other expensive work, but be careful not to block the user. If possible, do work in the background.
+
+    For actions that take longer than 50 ms to complete, always provide feedback.
+    
+    
+    
+    
+    
+    
+    
